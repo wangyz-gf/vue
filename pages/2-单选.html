@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <input type="radio" v-model="favorlang" value="vue" name="vue">vue
+        <input type="radio" v-model="favorlang" value="react" name="react">react
+        <input type="radio" v-model="favorlang" value="jquery" name="vue">jquery
+        <button @click="handleSelect()">单选提交</button>
+    </div>
+    <script>
+        new Vue({
+            el:'#box',
+            data:{
+                favorlang:'vue'
+            },
+            methods:{
+                handleSelect(){
+                    console.log(this.favorlang)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

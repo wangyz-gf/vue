@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <navbar mytitle="首页" :myshow="false"></navbar>
+        <navbar mytitle="列表" :myshow="true"></navbar>
+        <navbar :mymsg="msg"></navbar>
+    </div>
+    <script>
+        Vue.component('navbar',{
+            template:
+            `
+            <div style="background-color: yellow;">
+                <button>返回</button>
+                <span>导航-----{{mytitle}}==={{mymsg}}</span>
+                <button v-show="myshow">首页</button>
+            </div>
+            `,
+            // props:['mytitle','myshow'],//父组件传来的属性，在这里进行接受
+            // props:{
+            //     mytitle:String,
+            //     myshow:Boolean,
+            // },//属性验证
+            props:{
+                mytitle:{
+                    type:String,
+                    default:'默认名字',
+                },
+                myshow:{
+                    type:Boolean,
+                    default:true,
+                },
+                mymsg:{
+                    type:String,
+                    default:'000'
+                }
+            },
+        })
+        new Vue({
+            el:'#box',
+            data:{
+                msg:'111',
+            },
+        })
+    </script>
+</body>
+</html>

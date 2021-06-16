@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        {{mycomputedname}}
+        <hr>
+        <input type="text" v-model="mytext" name="" id="">
+        {{mydatalist}}
+        <ul>
+            <li v-for="data in mydatalist">
+                {{data}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        // computed:注重结果
+        // 1.逻辑计算，防止模板过重
+        // 2.监听：依赖修改 。get方法必须return
+        new Vue({
+            el:'#box',
+            data:{
+                myname:'kerwin',
+                mytext:'',
+                datalist:["aaa",'sdsd','sdsfs','sdfdsfds']
+            },
+            computed:{
+                mycomputedname(){
+                    return this.myname.substring(0,1).toUpperCase()+this.myname.substring(1)
+                },
+                mydatalist(){
+                    return this.datalist.filter(item=>item.includes(this.mytext))
+                }
+            }
+        })
+    </script>
+</body>
+</html>

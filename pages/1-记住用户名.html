@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <label><input type="checkbox" v-model="isRem">记住用户名</label>
+        <button @click="handleLogin()">登录</button>
+    </div>
+    
+    <script>
+        new Vue({
+            el:'#box',
+            data:{
+                isRem:false
+            },
+            methods:{
+                handleLogin(){
+                    console.log('登录',this.isRem)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

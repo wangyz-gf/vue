@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <navbar>
+            <div slot="left">
+                <button>返回</button>
+                <i>图标</i>
+            </div>
+            <div slot="right">
+                <button>搜索</button>
+                <i>图标</i>
+            </div>
+        </navbar>
+    </div>
+    <script>
+        Vue.component('navbar',{
+            template:
+            `
+            <div style="display: flex;flex-direction: row;">
+                <slot name="left"></slot>
+                navbar
+                <slot name="right"></slot>
+            </div>
+            `
+        })
+        new Vue({
+            el:'#box',
+            data:{
+
+            }
+        })
+    </script>
+</body>
+</html>

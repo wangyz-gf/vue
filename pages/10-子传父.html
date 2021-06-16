@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        app
+        <child @myevent="handleEvent"></child>
+    </div>
+    <script>
+        Vue.component('child',{
+            template:
+            `
+            <div style="background-color: yellow;">
+                child--<button @click="handleClick">click--child</button>
+            </div>
+            `,
+            data(){
+                return{
+                    money:10000,
+                }
+            },
+            methods:{
+                handleClick(){
+                    // 触发
+                    this.$emit('myevent',this.money)
+                }
+            }
+        })
+        // 子传父-需要在子组件身上监听事件，等子组件通过this.$emit触发事件
+        new Vue({
+            el:'#box',
+            data:{
+
+            },
+            methods:{
+                handleEvent(data){
+                    console.log('父组件中定义的',data);
+                }
+            },
+        })
+    </script>
+</body>
+</html>

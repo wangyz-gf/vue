@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <div v-hello="'red'">11111</div>
+        <div v-hello="'blue'">22222</div>
+        <div v-hello="mycolor">33333</div>
+    </div>
+    <script>
+        // 对普通DOM元素进行底层操作 
+        // Vue.directive('hello',{
+        //     // 绑定当前指令的标签插入父节点就会执行
+        //     inserted(el,binding){
+        //         // el.style.background='red'
+        //         el.style.background=binding.value
+        //         // console.log('object');
+        //     },
+        //     // 节点修改时执行
+        //     update(el,binding){
+        //         el.style.background=binding.value
+        //     }
+        // })
+        Vue.directive('hello',function(el,binding,vnode){
+            console.log(vnode.context);
+            el.style.background=binding.value
+        })
+        new Vue({
+            el:'#box',
+            data:{
+                mycolor:'yellow'
+            }
+        })
+    </script>
+</body>
+</html>

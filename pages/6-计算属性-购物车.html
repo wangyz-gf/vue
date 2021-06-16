@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        li{
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+        }
+        li img{
+            width: 100px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div v-if="list.length===0">购物车空空如也</div>
+        <template v-else>
+            <input type="checkbox" v-model="isAllCheckedComputed"/>全选/全不选
+            <ul>
+                <li v-for="(item,index) in list" :key="item.id">
+                    <input type="checkbox" v-model="checkGroup" :value="item"/>
+                    <img :src="item.pic" alt="">
+                    <div>
+                        <div>名称：{{item.name}}</div>
+                        <div>价格：￥{{item.price}}</div>
+                    </div>
+                    <div>
+                        <button @click="item.number--" :disabled="item.number===1">-</button>
+                        {{item.number}}
+                        <button @click ="item.number++" :disabled="item.number===item.limit">+</button>
+                    </div>
+                    <div>
+                        <button @click="handleDelete(index,item.id)">删除</button>
+                    </div>
+                </li>
+            </ul>
+            <div style="background-color: yellow;">
+                总金额：￥{{sum()}}
+            </div>
+        </template>
+    </div>
+    <script>
+        new Vue({
+            el:'#box',
+            data:{
+                list:[
+                    {
+                        name:'商品1',
+                        price:34,
+                        number:9,
+                        id:1,
+                        limit:15,
+                        pic:'https://www.omekanko.gr.jp/wph8gq9w/wp-content/uploads/2019/03/P7303834.jpg'
+                    },
+                    {
+                        name:'商品2',
+                        price:65,
+                        number:2,
+                        id:2,
+                        limit:3,
+                        pic:'https://www.omekanko.gr.jp/wph8gq9w/wp-content/uploads/2019/03/P7303834.jpg'
+                    },
+                    {
+                        name:'商品3',
+                        price:23,
+                        number:12,
+                        id:3,
+                        limit:15,
+                        pic:'https://www.omekanko.gr.jp/wph8gq9w/wp-content/uploads/2019/03/P7303834.jpg'
+                    },
+                    {
+                        name:'商品4',
+                        price:72,
+                        number:10,
+                        id:4,
+                        limit:13,
+                        pic:'https://www.omekanko.gr.jp/wph8gq9w/wp-content/uploads/2019/03/P7303834.jpg'
+                    },
+                ],
+                checkGroup:[],
+                isAllChecked:false,
+            },
+            methods:{
+                // 计算总金额
+                sum(){
+                    var total=0
+                    this.checkGroup.forEach(item => {
+                        total+=item.price*item.number
+                    });
+                    return total
+                },
+                // 删除
+                handleDelete(index,deleteId){
+                    // 删除checkGroup数组的对应的元素
+                    this.checkGroup=this.checkGroup.filter(item=>item.id!=deleteId)
+                    // 删除原数组
+                    this.list.splice(index,1)
+                    // 判断全选是否勾上
+                    this.checked()
+                },
+               
+            },
+            computed:{
+                isAllCheckedComputed:{
+                    set(isChecked){
+                        if(isChecked){
+                            this.checkGroup=this.list
+                        }else{
+                            this.checkGroup=[]
+                        }
+                    },
+                    get(){
+                        return this.checkGroup.length===this.list.length
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
